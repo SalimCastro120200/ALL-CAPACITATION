@@ -1,0 +1,81 @@
+<mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+<div class="p-6">
+    <h2 mat-dialog-title *ngIf="cargando">Cargando información...</h2>
+    <h2 mat-dialog-title *ngIf="!cargando" class="mb-4">
+        Información de {{empleadoInformacion.nombre}} {{empleadoInformacion.paterno}} {{empleadoInformacion.materno}} 
+        <span class=" text-white px-2 py-1 rounded-md" 
+            [class.bg-green-600]="empleadoInformacion.estatus == 1"
+            [class.bg-red-600]="empleadoInformacion.estatus == 2">
+            {{
+                ( empleadoInformacion.estatus == 1 ) ? 'Activo' :
+                ( empleadoInformacion.estatus == 2 ) ? 'Inactivo' : ''
+            }}
+        </span> 
+    </h2>
+    <div mat-dialog-content *ngIf="!cargando">
+        <div class="flex flex-wrap">
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600"># empleado</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.noEmpleado }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Fecha de ingreso</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.fechaRegistro | date: 'dd/MM/yyyy' }}
+                </p>
+            </div>
+
+            <div class="w-full">
+                <span class="text-sm text-blue-600">Direccion</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.calle }} {{ empleadoInformacion.exterior }}{{ empleadoInformacion.interior }}, {{ empleadoInformacion.cp }} {{ empleadoInformacion.colonia }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Fecha de nacimiento</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.fechaNacimiento | date: 'dd/MM/yyyy' }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Sexo</span>
+                <p class="text-base font-semibold">
+                    {{ (empleadoInformacion.sexo) ? 'Masculino' : 'Femenino' }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Correo</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.correo }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Teléfono</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.telefono }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-blue-600">Áreas</span>
+                <p class="mt-1">
+                    <span *ngFor="let area of empleadoInformacion.areas; let last=last;" class="bg-blue-500 text-white px-2 py-1 rounded-md" [class.mr-1]="!last">
+                        {{ area.nombre }}
+                    </span>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial type="button">Cerrar</button>
+    </div>
+</div>

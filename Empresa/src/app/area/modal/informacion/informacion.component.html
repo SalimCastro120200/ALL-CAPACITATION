@@ -1,0 +1,20 @@
+<mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+<div class="p-6">
+    <h2 mat-dialog-title *ngIf="cargando">Cargando información...</h2>
+    <h2 mat-dialog-title *ngIf="!cargando">Información de {{areaInformacion.nombre}}</h2>
+    <div mat-dialog-content *ngIf="!cargando">
+        <mat-list>
+            <div mat-subheader>Empleados</div>
+            <mat-list-item *ngFor="let empleado of areaInformacion.empleados">
+                <div mat-line> {{empleado.nombre}} </div>
+                <div mat-line> {{empleado.noEmpleado}} </div>
+            </mat-list-item>
+            <mat-list-item *ngIf="areaInformacion.empleados.length == 0">
+                <div mat-line> Sin empleados asignados </div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close cdkFocusInitial type="button">Cancelar</button>
+    </div>
+</div>

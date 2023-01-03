@@ -1,0 +1,19 @@
+<mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+<form [formGroup]="form" (ngSubmit)="registro()" class="p-6">
+    <h2 mat-dialog-title>{{titulo}}</h2>
+    <div mat-dialog-content>
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Nombre del área</mat-label>
+            <input type="text" matInput required formControlName="nombre">
+            <mat-error *ngIf="form.controls['nombre'].hasError('required')">El campo es obligatorio</mat-error>
+            <mat-error *ngIf="form.controls['nombre'].hasError('minlength')">El campo es inválido</mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close type="button" [disabled]="cargando">Cancelar</button>
+        <button mat-button cdkFocusInitial type="submit" [disabled]="cargando">
+            <mat-icon>save</mat-icon>
+            Guardar
+        </button>
+    </div>
+</form>

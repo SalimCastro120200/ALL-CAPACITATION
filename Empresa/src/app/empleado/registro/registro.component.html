@@ -1,0 +1,107 @@
+<h1 class="font-bold text-3xl">Registro de empleado</h1>
+<mat-progress-bar mode="indeterminate" *ngIf="cargando"></mat-progress-bar>
+<form [formGroup]="form" (ngSubmit)="registro()" class="flex flex-wrap mat-elevation-z10 px-4 py-3">
+
+    <p class="w-full mt-2">Datos generales</p>
+
+    <mat-form-field appearance="fill" class="w-1/3 pr-1 mb-3">
+        <mat-label>Nombre</mat-label>
+        <input type="text" matInput formControlName="nombre">
+        <mat-error *ngIf="form.controls['nombre'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['nombre'].hasError('minlength')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 px-1 mb-3">
+        <mat-label>Apellido paterno</mat-label>
+        <input type="text" matInput formControlName="paterno">
+        <mat-error *ngIf="form.controls['paterno'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['paterno'].hasError('minlength')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pl-1 mb-3">
+        <mat-label>Apellido materno</mat-label>
+        <input type="text" matInput formControlName="materno">
+        <mat-error *ngIf="form.controls['materno'].hasError('minlength')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pr-1 mb-3">
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="sexo">
+            <mat-option value="true">Masculino</mat-option>
+            <mat-option value="false">Femenino</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['sexo'].hasError('required')">El campo es obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 px-1 mb-3">
+        <mat-label>Correo</mat-label>
+        <input type="email" matInput formControlName="correo">
+        <mat-error *ngIf="form.controls['correo'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['correo'].hasError('pattern')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pl-1 mb-3">
+        <mat-label>Teléfono</mat-label>
+        <input type="tel" matInput formControlName="telefono">
+        <mat-error *ngIf="form.controls['telefono'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['telefono'].hasError('pattern')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pr-1 mb-3">
+        <mat-label>Fecha de nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-2/3 pl-1 mb-3">
+        <mat-label>Áreas</mat-label>
+        <mat-select formControlName="areas" multiple="true">
+            <mat-option *ngFor="let area of listaAreas" [value]="area.uuid">{{area.nombre}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.controls['fechaNacimiento'].hasError('required')">El campo es obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-divider class="w-full"></mat-divider>
+    <p class="w-full mt-2">Dirección</p>
+    <mat-form-field appearance="fill" class="w-1/3 pr-1 mb-3">
+        <mat-label>Calle</mat-label>
+        <input type="text" matInput formControlName="calle">
+        <mat-error *ngIf="form.controls['calle'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['calle'].hasError('minlength')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 px-1 mb-3">
+        <mat-label># Exterior</mat-label>
+        <input type="number" matInput formControlName="exterior">
+        <mat-error *ngIf="form.controls['exterior'].hasError('required')">El campo es obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pl-1 mb-3">
+        <mat-label># Interior</mat-label>
+        <input type="text" matInput formControlName="interior">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-1/3 pr-1 mb-3">
+        <mat-label>Código Postal</mat-label>
+        <input type="text" matInput formControlName="cp">
+        <mat-error *ngIf="form.controls['cp'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['cp'].hasError('pattern')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="w-2/3 pl-1 mb-3">
+        <mat-label>Colonia</mat-label>
+        <input type="text" matInput formControlName="colonia">
+        <mat-error *ngIf="form.controls['colonia'].hasError('required')">El campo es obligatorio</mat-error>
+        <mat-error *ngIf="form.controls['colonia'].hasError('minlength')">El campo es inválido</mat-error>
+    </mat-form-field>
+
+    <div class="w-full flex mt-4 mb-4">
+        <button mat-raised-button color="primary" class="mx-auto px-8 py-1 uppercase" type="submit" [disabled]="cargando">
+            <mat-icon>save</mat-icon>
+            Guardar
+        </button>
+    </div>
+
+</form>
