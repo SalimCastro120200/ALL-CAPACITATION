@@ -1,13 +1,13 @@
-<h1 class="font-bold text-3xl">Lista de áreas</h1>
+<h1 class="font-bold text-3xl">Lista de Áreas</h1>
 <div class="flex justify-between">
     <mat-form-field appearance="outline" class="w-1/3">
-        <!-- <mat-label>Buscar</mat-label> -->
-        <input type="text" matInput (keyup)="buscarTabla($event)">
-        <!-- <mat-icon matPrefix>search</mat-icon> -->
+        <mat-label>Buscar</mat-label>
+        <input type="text" matInput (keyup)="buscarTabla($event)" placeholder="Busca un Área...">
+        <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
     <div class="w-1/3 flex justify-end">
         <button mat-flat-button color="primary" class="my-auto uppercase" (click)="gestionar()">
-            <!-- <mat-icon>add</mat-icon> -->
+            <mat-icon>add</mat-icon>
             Registrar área
         </button>
     </div>
@@ -18,7 +18,7 @@
     *ngIf="estaCargando || paginador.total == 0">
     <mat-spinner *ngIf="estaCargando"></mat-spinner>
     <div *ngIf="paginador.total == 0">
-      Sin resultados
+      Sin Resultados
     </div>
   </div>
 

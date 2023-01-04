@@ -1,4 +1,4 @@
-<h1 class="font-bold text-3xl">Lista de empleados</h1>
+<h1 class="font-bold text-3xl">Lista de Empleados</h1>
 <div class="flex justify-between">
     <mat-form-field appearance="outline" class="w-1/3">
         <mat-label>Buscar</mat-label>
@@ -18,7 +18,7 @@
     *ngIf="estaCargando || paginador.total == 0">
     <mat-spinner *ngIf="estaCargando"></mat-spinner>
     <div *ngIf="paginador.total == 0">
-      Sin resultados
+      Sin Resultados
     </div>
   </div>
 
@@ -27,7 +27,7 @@
       matSortDirection="desc">
 
       <ng-container matColumnDef="noEmpleado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear># empleado</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear># Empleado</th>
         <td mat-cell *matCellDef="let empleado">{{empleado.noEmpleado}}</td>
       </ng-container>
 
@@ -50,14 +50,14 @@
         <th mat-header-cell *matHeaderCellDef>Áreas</th>
         <td mat-cell *matCellDef="let empleado">
           <span *ngIf="empleado.areas.length == 0">-</span>
-          <span *ngFor="let area of empleado.areas; let last=last" class="bg-blue-500 text-white px-2 py-1 rounded-md" [class.mr-1]="!last">
+          <span *ngFor="let area of empleado.areas; let last=last" class="bg-purple-500 text-white px-2 py-1 rounded-md" [class.mr-1]="!last">
             {{ area.nombre }}
           </span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="fechaIngreso">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Fecha de ingreso</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Fecha de Ingreso</th>
         <td mat-cell *matCellDef="let empleado">{{empleado.fechaIngreso | date : 'dd/MM/yyyy'}}</td>
       </ng-container>
 

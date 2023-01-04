@@ -18,22 +18,22 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class RegistroComponent {
   uuid: string | null
   cargando = false;
-  listaAreas : any[] = []
+  listaAreas: any[] = []
   form = this.fb.group({
-    uuid           : [ '' ],
-    nombre         : [ '', [ Validators.required, Validators.minLength(3) ] ],
-    paterno        : [ '', [ Validators.required, Validators.minLength(3) ] ],
-    materno        : [ '', [ Validators.minLength(3) ] ],
-    fechaNacimiento: [ '', [ Validators.required ] ],
-    sexo           : [ '', [ Validators.required ] ],
-    areas          : [ '', [ Validators.required ] ],
-    telefono       : [ '', [ Validators.required, Validators.pattern(/^\d{10}?$/) ] ],
-    correo         : [ '', [ Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) ] ],
-    calle   : [ '', [ Validators.required, Validators.minLength(3) ] ],
-    exterior: [ '', [ Validators.required ] ],
-    interior: [ '' ],
-    cp      : [ '', [ Validators.required, Validators.pattern(/^[0-9]{5}$/) ] ],
-    colonia : [ '', [ Validators.required, Validators.minLength(3) ] ]
+    uuid: [''],
+    nombre: ['', [Validators.required, Validators.minLength(3)]],
+    paterno: ['', [Validators.required, Validators.minLength(3)]],
+    materno: ['', [Validators.minLength(3)]],
+    fechaNacimiento: ['', [Validators.required]],
+    sexo: ['', [Validators.required]],
+    areas: ['', [Validators.required]],
+    telefono: ['', [Validators.required, Validators.pattern(/^\d{10}?$/)]],
+    correo: ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)]],
+    calle: ['', [Validators.required, Validators.minLength(3)]],
+    exterior: ['', [Validators.required]],
+    interior: [''],
+    cp: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
+    colonia: ['', [Validators.required, Validators.minLength(3)]]
   })
   constructor(
     private fb: FormBuilder,
@@ -46,22 +46,22 @@ export class RegistroComponent {
   ) {
     this.uuid = this.activatedRouter.snapshot.paramMap.get('uuid');
 
-    this.areasSrv.lista().subscribe( (resp:any) => {
-      if( !resp.success ) {
+    this.areasSrv.lista().subscribe((resp: any) => {
+      if (!resp.success) {
         return;
       }
       this.listaAreas = resp.lista;
     }, () => {
-      this.snackBar.open( "Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
+      this.snackBar.open("Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
         horizontalPosition: 'end',
         verticalPosition: 'top',
         duration: 5000
-      } )
-    } )
+      })
+    })
 
-    if( this.uuid ) {
+    if (this.uuid) {
       this.cargando = true;
-      this.empleadoSrv.informacion( this.uuid ).subscribe( (resp:any) => {
+      this.empleadoSrv.informacion(this.uuid).subscribe((resp: any) => {
         setTimeout(() => {
           this.cargando = false;
           this.form.patchValue({
@@ -73,9 +73,9 @@ export class RegistroComponent {
             correo: resp.informacion.correo,
             telefono: resp.informacion.telefono,
             fechaNacimiento: resp.informacion.fechaNacimiento,
-            areas: resp.informacion.areas.map( (el:any) => {
+            areas: resp.informacion.areas.map((el: any) => {
               return el.uuid
-            } ),
+            }),
             calle: resp.informacion.calle,
             exterior: resp.informacion.exterior,
             interior: resp.informacion.interior,
@@ -86,63 +86,63 @@ export class RegistroComponent {
         }, 100);
       }, () => {
         this.cargando = false;
-        this.snackBar.open( "Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
+        this.snackBar.open("Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
           horizontalPosition: 'end',
           verticalPosition: 'top',
           duration: 5000
-        } )
+        })
         this.router.navigateByUrl('/empleado/lista')
-      } )
+      })
     }
   }
 
   registro() {
-    if( this.form.invalid ) return;
+    if (this.form.invalid) return;
     this.cargando = true;
     const data = this.form.value
 
-    let solicitud = this.empleadoSrv.registrar( 
-      data.nombre, data.paterno, data.materno, 
-      data.sexo, this.datePipe.transform( data.fechaNacimiento, 'MM/dd/yyyy' )!, 
-      data.calle, data.exterior, data.interior, data.cp, data.colonia, 
-      data.telefono, data.correo, data.areas
+    let solicitud = this.empleadoSrv.registrar(
+      data.nombre as any, data.paterno as any, data.materno as any,
+      data.sexo as any, this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
+      data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
+      data.telefono as any, data.correo as any, data.areas as any
     )
-    if( this.uuid ) {
-      solicitud = this.empleadoSrv.modificar( 
+    if (this.uuid) {
+      solicitud = this.empleadoSrv.modificar(
         this.uuid,
-        data.nombre, data.paterno, data.materno, 
-        data.sexo, this.datePipe.transform( data.fechaNacimiento, 'MM/dd/yyyy' )!, 
-        data.calle, data.exterior, data.interior, data.cp, data.colonia, 
-        data.telefono, data.correo, data.areas
+        data.nombre as any, data.paterno as any, data.materno as any,
+        data.sexo as any, this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
+        data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
+        data.telefono as any, data.correo as any, data.areas as any
       )
     }
 
-    solicitud.subscribe( (resp:any) => {
+    solicitud.subscribe((resp: any) => {
       setTimeout(() => {
         this.cargando = false
-        if( !resp.success ) {
-          this.snackBar.open( "Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
+        if (!resp.success) {
+          this.snackBar.open("Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
             horizontalPosition: 'end',
             verticalPosition: 'top',
             duration: 5000
-          } )
+          })
           return
         }
         const titulo = this.uuid ? 'Empleado actualizado' : 'Empleado registrado'
-        this.snackBar.open( titulo, "Cerrar", {
+        this.snackBar.open(titulo, "Cerrar", {
           horizontalPosition: 'end',
           verticalPosition: 'top',
           duration: 5000
-        } )
+        })
         this.router.navigateByUrl('/empleado/lista')
       }, 500);
     }, () => {
       this.cargando = false
-      this.snackBar.open( "Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
+      this.snackBar.open("Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
         horizontalPosition: 'end',
         verticalPosition: 'top',
         duration: 5000
-      } )
-    } )
+      })
+    })
   }
 }

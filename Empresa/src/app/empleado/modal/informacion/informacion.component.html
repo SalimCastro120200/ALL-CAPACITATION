@@ -16,58 +16,58 @@
         <div class="flex flex-wrap">
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600"># empleado</span>
+                <span class="text-sm text-purple-600"># empleado</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.noEmpleado }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Fecha de ingreso</span>
+                <span class="text-sm text-purple-600">Fecha de ingreso</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.fechaRegistro | date: 'dd/MM/yyyy' }}
                 </p>
             </div>
 
             <div class="w-full">
-                <span class="text-sm text-blue-600">Direccion</span>
+                <span class="text-sm text-purple-600">Direccion</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.calle }} {{ empleadoInformacion.exterior }}{{ empleadoInformacion.interior }}, {{ empleadoInformacion.cp }} {{ empleadoInformacion.colonia }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Fecha de nacimiento</span>
+                <span class="text-sm text-purple-600">Fecha de nacimiento</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.fechaNacimiento | date: 'dd/MM/yyyy' }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Sexo</span>
+                <span class="text-sm text-purple-600">Sexo</span>
                 <p class="text-base font-semibold">
                     {{ (empleadoInformacion.sexo) ? 'Masculino' : 'Femenino' }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Correo</span>
+                <span class="text-sm text-purple-600">Correo</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.correo }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Teléfono</span>
+                <span class="text-sm text-purple-600">Teléfono</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.telefono }}
                 </p>
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-blue-600">Áreas</span>
+                <span class="text-sm text-purple-600">Áreas</span>
                 <p class="mt-1">
-                    <span *ngFor="let area of empleadoInformacion.areas; let last=last;" class="bg-blue-500 text-white px-2 py-1 rounded-md" [class.mr-1]="!last">
+                    <span *ngFor="let area of empleadoInformacion.areas; let last=last;" class="bg-purple-500 text-white px-2 py-1 rounded-md" [class.mr-1]="!last">
                         {{ area.nombre }}
                     </span>
                 </p>
