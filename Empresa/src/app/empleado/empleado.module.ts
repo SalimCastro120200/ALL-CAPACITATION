@@ -25,6 +25,8 @@ import { PaginadorComponent } from './paginador/paginador.component';
 import { RegistroComponent } from './registro/registro.component';
 import localeMx from '@angular/common/locales/es-MX';
 import { registerLocaleData } from '@angular/common';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
 
 registerLocaleData( localeMx, 'es-MX' )
 @NgModule({
@@ -36,12 +38,12 @@ registerLocaleData( localeMx, 'es-MX' )
   imports: [
     CommonModule,
     EmpleadoRoutingModule,
-
+    MatCheckboxModule,
     FormsModule,
     ReactiveFormsModule,
-
+    MatButtonModule,
+    MatRadioModule,
     MatNativeDateModule,
-
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
@@ -59,7 +61,8 @@ registerLocaleData( localeMx, 'es-MX' )
     MatDatepickerModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    
   ]
 })
 export class EmpleadoModule { }

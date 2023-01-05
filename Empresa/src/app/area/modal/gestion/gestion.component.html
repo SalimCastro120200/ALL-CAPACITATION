@@ -3,7 +3,7 @@
     <h2 mat-dialog-title>{{titulo}}</h2>
     <div mat-dialog-content>
         <mat-form-field appearance="fill" class="w-full">
-            <mat-label>Nombre del área</mat-label>
+            <mat-label>Nombre del Área</mat-label>
             <input type="text" matInput required formControlName="nombre">
             <mat-error *ngIf="form.controls['nombre'].hasError('required')">El campo es obligatorio</mat-error>
             <mat-error *ngIf="form.controls['nombre'].hasError('minlength')">El campo es inválido</mat-error>
@@ -11,7 +11,7 @@
     </div>
     <div mat-dialog-actions align="end">
         <button mat-button mat-dialog-close type="button" [disabled]="cargando">Cancelar</button>
-        <button mat-button cdkFocusInitial color="primary" type="submit" [disabled]="cargando">
+        <button mat-button cdkFocusInitial color="primary" type="submit" [disabled]="form.invalid">
             <mat-icon >save</mat-icon>
             Guardar
         </button>

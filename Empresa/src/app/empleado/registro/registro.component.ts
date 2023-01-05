@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import {MatRadioModule} from '@angular/material/radio';
 import { AreaService } from '../../services/http/area.service';
 import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -42,6 +42,7 @@ export class RegistroComponent {
     private datePipe: DatePipe,
     private router: Router,
     private snackBar: MatSnackBar,
+    private matRadioButton: MatRadioModule,
     private activatedRouter: ActivatedRoute
   ) {
     this.uuid = this.activatedRouter.snapshot.paramMap.get('uuid');
@@ -103,15 +104,17 @@ export class RegistroComponent {
 
     let solicitud = this.empleadoSrv.registrar(
       data.nombre as any, data.paterno as any, data.materno as any,
-      data.sexo as any, this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
+      data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'yyyy/MM/dd')!,
       data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
       data.telefono as any, data.correo as any, data.areas as any
     )
+    console.log(data.sexo)
+    
     if (this.uuid) {
       solicitud = this.empleadoSrv.modificar(
         this.uuid,
         data.nombre as any, data.paterno as any, data.materno as any,
-        data.sexo as any, this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
+        data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'yyyy/MM/dd')!,
         data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
         data.telefono as any, data.correo as any, data.areas as any
       )

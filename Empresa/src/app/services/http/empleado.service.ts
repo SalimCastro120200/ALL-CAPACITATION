@@ -19,6 +19,7 @@ export class EmpleadoService {
   }
 
   registrar( nombre: string, paterno: string, materno: string = '', sexo: boolean, fechaNacimiento: string, calle: string, exterior: string, interior: string = '', cp: string, colonia: string, telefono: string, correo: string, areas: string[] ) : Observable<any> {
+  
     return this.req.post( environment.http.empleado.registro, {
       nombre, paterno, materno, sexo, fechaNacimiento, calle, exterior, interior, cp, colonia, telefono, correo, areas
     } )

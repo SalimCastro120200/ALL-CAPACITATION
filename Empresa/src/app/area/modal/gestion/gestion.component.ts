@@ -12,7 +12,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class GestionComponent implements OnInit {
   cargando : boolean = false;
-  titulo = "Registro de área"
+  titulo = "Registro de Área"
   form = this.fb.group({
     uuid: [ '' ],
     nombre: [ '', [ Validators.required, Validators.minLength(3) ] ]

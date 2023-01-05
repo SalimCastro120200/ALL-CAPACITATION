@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MenuModule } from './menu/menu.module';
 import { NgModule } from '@angular/core';
 
+
 @NgModule({
   declarations: [
     AppComponent
