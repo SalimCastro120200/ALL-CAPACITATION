@@ -1,5 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 import {MatRadioModule} from '@angular/material/radio';
 import { AreaService } from '../../services/http/area.service';
 import { Component } from '@angular/core';
@@ -36,7 +36,7 @@ export class RegistroComponent {
     colonia: ['', [Validators.required, Validators.minLength(3)]]
   })
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private areasSrv: AreaService,
     private empleadoSrv: EmpleadoService,
     private datePipe: DatePipe,

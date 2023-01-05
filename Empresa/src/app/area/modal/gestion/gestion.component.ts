@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormBuilder, Validators } from '@angular/forms';
 
 import { AreaService } from '../../../services/http/area.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -18,7 +18,7 @@ export class GestionComponent implements OnInit {
     nombre: [ '', [ Validators.required, Validators.minLength(3) ] ]
   })
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private areaSrv: AreaService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<GestionComponent>,
