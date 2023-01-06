@@ -79,16 +79,18 @@ environments:
         dataSource:
             dbCreate: update
             username: root 
-            password: "1234"
-            url: jdbc:mysql://localhost:3307/innovattia
+            password: "F9E9qcgPa9"
+            url: jdbc:mysql://localhost:3306/innovattia
     test:
         dataSource:
             dbCreate: update
             url: jdbc:h2:mem:testDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
     production:
         dataSource:
-            dbCreate: none
-            url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
+            dbCreate: update
+            username: root 
+            password: "F9E9qcgPa9"
+            url: jdbc:mysql://localhost:3306/innovattia
             properties:
                 jmxEnabled: true
                 initialSize: 5

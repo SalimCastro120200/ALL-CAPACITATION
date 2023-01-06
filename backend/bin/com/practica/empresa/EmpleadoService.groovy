@@ -75,6 +75,7 @@ class EmpleadoService {
             return [ success: false, mensaje: e.getMessage() ]
         }
     }
+    
     def gestionar( data, uuid = null ) {
         Empleado.withTransaction { tStatus ->
             def nEmpleado

@@ -85,30 +85,42 @@ class AreaService {
             }            
         }
     }
+
     def actualizarEstatus( nEstatus, uuid ) {
+        println(nEstatus)
+        println(nEstatus.class)
+        println(uuid)
         Area.withTransaction { tStatus ->
             def nArea
             try {
                 nArea = Area.findByUuid( uuid )
+                println(nArea)
                 if( !nArea ) {
                     return [ success: false, mensaje: "No se encontro el area." ]
                 }
                 nArea.estatus = nEstatus
-
-                nArea.empleados.each { empleado ->
-                    empleado.removeFromAreas( nArea )
-                    empleado.save()
-                }
+                println(nArea.empleados)
+                // nArea.empleados.each { empleado ->
+                //     println(empleado)
+                //     empleado.removeFromAreas( nArea )
+                //     empleado.save()
+                // }  PENDIENTE A REVISIÓN
 
                 nArea.save( flush: true, failOnError: true )
                 return [ success: true ]
             } catch(e) {
                 println "${new Date()} | AreaService | actualizarEstatus | Error | ${e.getMessage()}"
+                e.stackTrace.each{newError->
+                    if(newError.className.startsWith('com.practica.empresa.AreaService')){
+                        println newError
+                    }
+                }
                 tStatus.setRollbackOnly()
                 return [ success: false, mensaje: e.getMessage() ]   
             }            
         }
     }
+
     def informacion( uuid ) {
         def nArea
         try {
