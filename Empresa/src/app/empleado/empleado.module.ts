@@ -1,5 +1,5 @@
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import  Swal  from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { EmpleadoRoutingModule } from './empleado-routing.module';
 import { InformacionComponent } from './modal/informacion/informacion.component';
@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
@@ -61,7 +61,7 @@ registerLocaleData( localeMx, 'es-MX' )
     MatDatepickerModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
     
   ]
 })

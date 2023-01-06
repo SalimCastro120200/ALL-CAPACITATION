@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { EmpleadoService } from '../../services/http/empleado.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import Swal from 'sweetalert2';
+import { MatIconRegistry } from '@angular/material/icon';
 
 @Component({
   selector: 'app-registro',
@@ -17,7 +19,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegistroComponent {
   uuid: string | null
+  isChecked = false;
   cargando = false;
+  public sex: string = '';
+  public customOption: string = '';
   listaAreas: any[] = []
   form = this.fb.group({
     uuid: [''],
@@ -36,6 +41,7 @@ export class RegistroComponent {
     colonia: ['', [Validators.required, Validators.minLength(3)]]
   })
   constructor(
+    // private matIconRegistry: MatIconRegistry,
     private fb: UntypedFormBuilder,
     private areasSrv: AreaService,
     private empleadoSrv: EmpleadoService,
@@ -46,7 +52,7 @@ export class RegistroComponent {
     private activatedRouter: ActivatedRoute
   ) {
     this.uuid = this.activatedRouter.snapshot.paramMap.get('uuid');
-
+    
     this.areasSrv.lista().subscribe((resp: any) => {
       if (!resp.success) {
         return;
@@ -131,6 +137,12 @@ export class RegistroComponent {
           })
           return
         }
+        // {
+        //   this.isChecked = false
+        //   if (this.isChecked == false) {
+        //     this.showModal()
+        //   }
+        // }
         const titulo = this.uuid ? 'Empleado actualizado' : 'Empleado registrado'
         this.snackBar.open(titulo, "Cerrar", {
           horizontalPosition: 'end',
@@ -148,4 +160,13 @@ export class RegistroComponent {
       })
     })
   }
+  title = 'sweetAlert';
+  showModal() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Atención!',
+      text: 'No has aceptado los terminos y condiciones'
+    })
+  }
 }
+
