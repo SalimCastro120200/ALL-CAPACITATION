@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { AreaService } from '../../services/http/area.service';
 import { Component } from '@angular/core';
 import { DatePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { EmpleadoService } from '../../services/http/empleado.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { MatIconRegistry } from '@angular/material/icon';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-registro',
@@ -20,9 +21,10 @@ import { MatIconRegistry } from '@angular/material/icon';
 export class RegistroComponent {
   uuid: string | null
   isChecked = false;
+  activo = true;
   cargando = false;
-  public sex: string = '';
-  public customOption: string = '';
+  sex = '';
+  // public customOption: string = '';
   listaAreas: any[] = []
   form = this.fb.group({
     uuid: [''],
@@ -52,7 +54,7 @@ export class RegistroComponent {
     private activatedRouter: ActivatedRoute
   ) {
     this.uuid = this.activatedRouter.snapshot.paramMap.get('uuid');
-    
+
     this.areasSrv.lista().subscribe((resp: any) => {
       if (!resp.success) {
         return;
@@ -103,6 +105,7 @@ export class RegistroComponent {
     }
   }
 
+  
   registro() {
     if (this.form.invalid) return;
     this.cargando = true;
@@ -114,8 +117,9 @@ export class RegistroComponent {
       data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
       data.telefono as any, data.correo as any, data.areas as any
     )
-    console.log(data.sexo)
     
+    console.log(data.sexo)
+
     if (this.uuid) {
       solicitud = this.empleadoSrv.modificar(
         this.uuid,
@@ -138,7 +142,7 @@ export class RegistroComponent {
           return
         }
         // {
-        //   this.isChecked = false
+        //   // this.isChecked = false
         //   if (this.isChecked == false) {
         //     this.showModal()
         //   }
@@ -168,5 +172,21 @@ export class RegistroComponent {
       text: 'No has aceptado los terminos y condiciones'
     })
   }
+
+  simpleAlert(){
+    Swal.fire('Hello world!');
+  }
+
+  acceptTC(){
+    if (this.activo != true) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Atención!',
+        text: 'No has aceptado los terminos y condiciones'
+      })
+    }
+    
+  }
+
 }
 

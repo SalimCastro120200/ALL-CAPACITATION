@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { EmpleadoRoutingModule } from './empleado-routing.module';
 import { InformacionComponent } from './modal/informacion/informacion.component';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { MAT_RADIO_DEFAULT_OPTIONS } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -61,7 +62,8 @@ registerLocaleData( localeMx, 'es-MX' )
     MatDatepickerModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
+    // { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: 'warn' }
     
   ]
 })

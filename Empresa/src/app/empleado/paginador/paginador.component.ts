@@ -104,9 +104,9 @@ export class PaginadorComponent {
         return
       }
 
-      let mensaje = "El área se ha activado correctamente"
-      if( estatus == 2 ) mensaje = "El área se ha desactivado correctamente"
-      if( estatus == 3 ) mensaje = "El área se ha eliminado correctamente"
+      let mensaje = "El Empleado se ha activado correctamente"
+      if( estatus == 2 ) mensaje = "El Empleado se ha desactivado correctamente"
+      if( estatus == 3 ) mensaje = "El Empleado se ha eliminado correctamente"
       this.snackBar.open( mensaje, "Cerrar", {
         horizontalPosition: 'end',
         verticalPosition: 'top',
