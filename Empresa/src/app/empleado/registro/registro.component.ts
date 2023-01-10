@@ -2,13 +2,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatRadioModule } from '@angular/material/radio';
 import { AreaService } from '../../services/http/area.service';
-import { Component } from '@angular/core';
+import { Component, Output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { EmpleadoService } from '../../services/http/empleado.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Swal from 'sweetalert2';
 import { MatIconRegistry } from '@angular/material/icon';
 import { VirtualTimeScheduler } from 'rxjs';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-registro',
@@ -18,12 +19,14 @@ import { VirtualTimeScheduler } from 'rxjs';
     DatePipe
   ]
 })
+
 export class RegistroComponent {
   uuid: string | null
-  isChecked = false;
-  activo = true;
+  activo = '';
   cargando = false;
   sex = '';
+  edadM = '';
+  isChecked: boolean = false;
   // public customOption: string = '';
   listaAreas: any[] = []
   form = this.fb.group({
@@ -43,7 +46,7 @@ export class RegistroComponent {
     colonia: ['', [Validators.required, Validators.minLength(3)]]
   })
   constructor(
-    // private matIconRegistry: MatIconRegistry,
+    private matIconRegistry: MatIconRegistry,
     private fb: UntypedFormBuilder,
     private areasSrv: AreaService,
     private empleadoSrv: EmpleadoService,
@@ -51,7 +54,7 @@ export class RegistroComponent {
     private router: Router,
     private snackBar: MatSnackBar,
     private matRadioButton: MatRadioModule,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
   ) {
     this.uuid = this.activatedRouter.snapshot.paramMap.get('uuid');
 
@@ -105,7 +108,7 @@ export class RegistroComponent {
     }
   }
 
-  
+
   registro() {
     if (this.form.invalid) return;
     this.cargando = true;
@@ -117,10 +120,14 @@ export class RegistroComponent {
       data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
       data.telefono as any, data.correo as any, data.areas as any
     )
-    
-    console.log(data.sexo)
 
-    if (this.uuid) {
+    // console.log(data.checked)
+    // console.log(data.fechaNacimiento)
+    // console.log(siono);
+
+
+    if ( this.uuid ) {
+
       solicitud = this.empleadoSrv.modificar(
         this.uuid,
         data.nombre as any, data.paterno as any, data.materno as any,
@@ -141,13 +148,16 @@ export class RegistroComponent {
           })
           return
         }
-        // {
-        //   // this.isChecked = false
-        //   if (this.isChecked == false) {
-        //     this.showModal()
-        //   }
+        // if (!this.onChangeEvent) {
+        //   Swal.fire({
+        //     icon: 'error',
+        //     title: 'Atención!',
+        //     text: 'No has aceptado los terminos y condiciones'
+        //   })
         // }
+
         const titulo = this.uuid ? 'Empleado actualizado' : 'Empleado registrado'
+        // const titulo = this.uuid || this.onChangeEvent(event.checked == 'true') ? 'Empleado actualizado' : 'Empleado registrado'
         this.snackBar.open(titulo, "Cerrar", {
           horizontalPosition: 'end',
           verticalPosition: 'top',
@@ -164,29 +174,46 @@ export class RegistroComponent {
       })
     })
   }
-  title = 'sweetAlert';
-  showModal() {
-    Swal.fire({
-      icon: 'error',
-      title: 'Atención!',
-      text: 'No has aceptado los terminos y condiciones'
-    })
+  // title = 'sweetAlert';
+  // showModal() {
+  //   Swal.fire({
+  //     icon: 'error',
+  //     title: 'Atención!',
+  //     text: 'No has aceptado los terminos y condiciones'
+  //   })
+  // }
+
+  // simpleAlert(){
+  //   Swal.fire('Hello world!');
+  // }
+
+  // acceptTC(){
+  //   if (!this.onChangeEvent) {
+  //     Swal.fire({
+  //       icon: 'error',
+  //       title: 'Atención!',
+  //       text: 'No has aceptado los terminos y condiciones'
+  //     })
+  //   }
+  // }
+
+
+  public getInputValue(inputValue: string) {
+    console.log(inputValue)
   }
 
-  simpleAlert(){
-    Swal.fire('Hello world!');
-  }
-
-  acceptTC(){
-    if (this.activo != true) {
+  onChangeEvent(event: any) {
+    if (event.checked == true) {
+      console.log("ACEPTASTE TERMINOS Y CONDICIONES");
+      return this.registro()
+    } else if(event.checked == null) {
+      console.log('No has Aceptado TERMINOS Y CONDICIONES')
       Swal.fire({
         icon: 'error',
         title: 'Atención!',
         text: 'No has aceptado los terminos y condiciones'
-      })
+      }).then()
     }
-    
   }
-
 }
 

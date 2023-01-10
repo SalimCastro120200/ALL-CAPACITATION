@@ -1,8 +1,23 @@
-.mat-card {
-    
-  box-shadow: 0 6px 1px -1px pink, 0 1px 1px 0 pink, 0 1px 3px 0 pink;
 
-  box-shadow: 0 6px 1px -1px pink, 0 1px 1px 0 pink, 0 1px 3px 0 blue
+/* // @if (sex == 'true') {
+//   .mat-card-male {
+//     box-shadow: 0 6px 18px 10px #87CEEB, 0 6px 6px 0 #87CEEB, 0 6px 6px 0 #87CEEB;
+//   }
+// } @else {
+//   .mat-card-female {
+//     box-shadow: 0 6px 6px 10px pink, 0 6px 6px 0 pink, 0 6px 6px 0 pink;
+//   }
+// } */
+
+/* Celui est pour un homme */
+.mat-card-male {
+  box-shadow: 0 6px 18px 10px #87CEEB, 0 6px 6px 0 #87CEEB, 0 6px 6px 0 #87CEEB;
+}
+
+
+/* Celui est pour la meuf */
+.mat-card-female {
+  box-shadow: 0 6px 6px 10px pink, 0 6px 6px 0 pink, 0 6px 6px 0 pink;
 }
 
 .size-radio-button {

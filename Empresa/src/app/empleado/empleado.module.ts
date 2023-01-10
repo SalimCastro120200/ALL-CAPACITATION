@@ -62,8 +62,7 @@ registerLocaleData( localeMx, 'es-MX' )
     MatDatepickerModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-    // { provide: MAT_RADIO_DEFAULT_OPTIONS, useValue: 'warn' }
+    { provide: MAT_DATE_LOCALE, useValue: 'es-ES' }
     
   ]
 })
