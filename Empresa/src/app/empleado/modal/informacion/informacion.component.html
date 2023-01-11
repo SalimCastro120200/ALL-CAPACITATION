@@ -23,18 +23,26 @@
             </div>
 
             <div class="w-1/2">
-                <span class="text-sm text-purple-600">Fecha de ingreso</span>
+                <span class="text-sm text-purple-600">Fecha de Ingreso</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.fechaRegistro | date: 'dd/MM/yyyy' }}
                 </p>
             </div>
 
-            <div class="w-full">
+            <div class="w-1/2">
                 <span class="text-sm text-purple-600">Direccion</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.calle }} {{ empleadoInformacion.exterior }}{{ empleadoInformacion.interior }}, {{ empleadoInformacion.cp }} {{ empleadoInformacion.colonia }}
                 </p>
             </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-purple-600">CURP</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.curp }} 
+                </p>
+            </div>
+
 
             <div class="w-1/2">
                 <span class="text-sm text-purple-600">Fecha de nacimiento</span>
@@ -62,6 +70,13 @@
                 <span class="text-sm text-purple-600">Teléfono</span>
                 <p class="text-base font-semibold">
                     {{ empleadoInformacion.telefono }}
+                </p>
+            </div>
+
+            <div class="w-1/2">
+                <span class="text-sm text-purple-600">Salario(MXN)</span>
+                <p class="text-base font-semibold">
+                    {{ empleadoInformacion.salario }}
                 </p>
             </div>
 

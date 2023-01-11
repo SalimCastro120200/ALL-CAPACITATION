@@ -21,13 +21,13 @@ import { MatIconModule } from '@angular/material/icon';
 })
 
 export class RegistroComponent {
+  edadC: number | any;
   uuid: string | null
   activo = '';
   cargando = false;
   sex = '';
   edadM = '';
   isChecked: boolean = false;
-  // public customOption: string = '';
   listaAreas: any[] = []
   form = this.fb.group({
     uuid: [''],
@@ -43,7 +43,10 @@ export class RegistroComponent {
     exterior: ['', [Validators.required]],
     interior: [''],
     cp: ['', [Validators.required, Validators.pattern(/^[0-9]{5}$/)]],
-    colonia: ['', [Validators.required, Validators.minLength(3)]]
+    colonia: ['', [Validators.required, Validators.minLength(3)]],
+    tc: [false, [Validators.required]],
+    curp: ['',[Validators.required, Validators.minLength(18)]],
+    salario: [ '', [Validators.required, Validators.pattern(/^[0-9]\d*$/)]]
   })
   constructor(
     private matIconRegistry: MatIconRegistry,
@@ -69,6 +72,11 @@ export class RegistroComponent {
         verticalPosition: 'top',
         duration: 5000
       })
+      Swal.fire({
+        icon: 'error',
+        title: 'Atención!',
+        text: 'Ocurrió un problema en el servicio, inténtelo más tarde.'
+      })
     })
 
     if (this.uuid) {
@@ -92,7 +100,9 @@ export class RegistroComponent {
             exterior: resp.informacion.exterior,
             interior: resp.informacion.interior,
             cp: resp.informacion.cp,
-            colonia: resp.informacion.colonia
+            colonia: resp.informacion.colonia,
+            curp: resp.informacion.curp,
+            salario: resp.informacion.curp
           })
 
         }, 100);
@@ -103,37 +113,57 @@ export class RegistroComponent {
           verticalPosition: 'top',
           duration: 5000
         })
+        Swal.fire({
+          icon: 'error',
+          title: 'Atención!',
+          text: 'Ocurrió un problema en el servicio, inténtelo más tarde.'
+        })
         this.router.navigateByUrl('/empleado/lista')
       })
     }
   }
 
+  
+  public edad(usrEdad: any){
+    var hoy = Date.now();
+    var ageV = new Date(usrEdad)
+    var realEdad = ageV.getTime();
+    const diferencia = Math.abs(hoy - realEdad);
+    this.edadC = Math.floor((diferencia / (1000 * 3600 * 24))/365.25);
+    return this.edadC
+  }
 
   registro() {
+     
+    
     if (this.form.invalid) return;
-    this.cargando = true;
     const data = this.form.value
+    if (data.tc === false ) {
+      console.log("No has aceptado T&C")
+      Swal.fire({
+        icon: 'error',
+        title: 'Atención!',
+        text: 'No has aceptado los terminos y condiciones'
+      })
+      return
+    }
+    this.cargando = true;
 
     let solicitud = this.empleadoSrv.registrar(
       data.nombre as any, data.paterno as any, data.materno as any,
-      data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'yyyy/MM/dd')!,
+      data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
       data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
-      data.telefono as any, data.correo as any, data.areas as any
+      data.telefono as any, data.correo as any, data.areas as any, data.curp as any, data.salario as any
     )
 
-    // console.log(data.checked)
-    // console.log(data.fechaNacimiento)
-    // console.log(siono);
-
-
-    if ( this.uuid ) {
+    if (this.uuid) {
 
       solicitud = this.empleadoSrv.modificar(
         this.uuid,
         data.nombre as any, data.paterno as any, data.materno as any,
-        data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'yyyy/MM/dd')!,
+        data.sexo == 'true', this.datePipe.transform(data.fechaNacimiento, 'MM/dd/yyyy')!,
         data.calle as any, data.exterior as any, data.interior as any, data.cp as any, data.colonia as any,
-        data.telefono as any, data.correo as any, data.areas as any
+        data.telefono as any, data.correo as any, data.areas as any, data.curp as any, data.salario as any
       )
     }
 
@@ -141,23 +171,26 @@ export class RegistroComponent {
       setTimeout(() => {
         this.cargando = false
         if (!resp.success) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Atención!',
+            text: 'Ocurrió un problema en el servicio, inténtelo más tarde.'
+          })
           this.snackBar.open("Ocurrió un problema en el servicio, inténtelo más tarde.", "Cerrar", {
             horizontalPosition: 'end',
             verticalPosition: 'top',
             duration: 5000
           })
           return
+        } else {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Gracias!',
+            text: 'Te has registrado con éxito'
+          })
         }
-        // if (!this.onChangeEvent) {
-        //   Swal.fire({
-        //     icon: 'error',
-        //     title: 'Atención!',
-        //     text: 'No has aceptado los terminos y condiciones'
-        //   })
-        // }
 
         const titulo = this.uuid ? 'Empleado actualizado' : 'Empleado registrado'
-        // const titulo = this.uuid || this.onChangeEvent(event.checked == 'true') ? 'Empleado actualizado' : 'Empleado registrado'
         this.snackBar.open(titulo, "Cerrar", {
           horizontalPosition: 'end',
           verticalPosition: 'top',
@@ -172,48 +205,20 @@ export class RegistroComponent {
         verticalPosition: 'top',
         duration: 5000
       })
-    })
-  }
-  // title = 'sweetAlert';
-  // showModal() {
-  //   Swal.fire({
-  //     icon: 'error',
-  //     title: 'Atención!',
-  //     text: 'No has aceptado los terminos y condiciones'
-  //   })
-  // }
-
-  // simpleAlert(){
-  //   Swal.fire('Hello world!');
-  // }
-
-  // acceptTC(){
-  //   if (!this.onChangeEvent) {
-  //     Swal.fire({
-  //       icon: 'error',
-  //       title: 'Atención!',
-  //       text: 'No has aceptado los terminos y condiciones'
-  //     })
-  //   }
-  // }
-
-
-  public getInputValue(inputValue: string) {
-    console.log(inputValue)
-  }
-
-  onChangeEvent(event: any) {
-    if (event.checked == true) {
-      console.log("ACEPTASTE TERMINOS Y CONDICIONES");
-      return this.registro()
-    } else if(event.checked == null) {
-      console.log('No has Aceptado TERMINOS Y CONDICIONES')
       Swal.fire({
         icon: 'error',
         title: 'Atención!',
-        text: 'No has aceptado los terminos y condiciones'
-      }).then()
-    }
+        text: 'Ocurrió un problema en el servicio, inténtelo más tarde.'
+      })
+    })
+
+
+    
   }
+
+  imprimir(){
+    console.log(this.form);
+
+}
 }
 
